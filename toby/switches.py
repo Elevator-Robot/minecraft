@@ -2,9 +2,10 @@ import json
 import boto3
 
 def hello(event, context):
-    ec2_resource = boto3.resource('ec2')
-
-    id = lookupID()
+    # ec2_resource = boto3.resource('ec2')
+    # friendlyName = 
+    print(json.dumps(event))
+    id = lookupID('foobar')
     ## Figure out how to get ec2 instance ID
     # response = ec2_resource.stop_instances(
     #     InstanceIds=[id]
