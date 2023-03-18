@@ -9,8 +9,8 @@ provider:
   runtime: python3.8
 
 functions:
-  hello:
-    handler: switches.hello
+  off:
+    handler: switches.off
     events:
       - http:
           path: /hello
@@ -18,5 +18,5 @@ functions:
           cors: true
           private: true
 
-  hello2:
-    handler: handler.hello2
+  on:
+    handler: switches.on

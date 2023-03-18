@@ -1,40 +1,41 @@
-import json
 import boto3
 
-def hello(event, context):
-    # ec2_resource = boto3.resource('ec2')
-    # friendlyName = 
-    print(json.dumps(event))
-    id = lookupID('foobar')
-    ## Figure out how to get ec2 instance ID
-    # response = ec2_resource.stop_instances(
-    #     InstanceIds=[id]
-    # )
+def off(event, context):
+    client = boto3.client('ec2')
+    friendlyName = event["server-name"]
 
-    body = {
-        "message": "i am ID: %f " % (id) ,
-        "input": event,
-    }
+    id = lookupID(friendlyName)
 
-    return {"statusCode": 200, "body": json.dumps(body)}
+    # Figure out how to get ec2 instance ID
+    response = client.stop_instances(
+        InstanceIds=[id]
+    )
 
-def hello2(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully! FUCK YOUUUU?",
-        "input": event,
-    }
+    return {"statusCode": 200, "body": response}
 
-    return {"statusCode": 200, "body": json.dumps(body)}
+def on(event, context):
+    client = boto3.client('ec2')
+    friendlyName = event["server-name"]
+
+    # grab ec2 instance id based off friendly name
+    id = lookupID(friendlyName)
+
+    response = client.start_instances(
+        InstanceIds=[id]
+    )
+
+    return {"statusCode": 200, "body": response}
 
 def lookupID(friendlyName):
-    ec2_resource = boto3.resource('ec2')
+    client = boto3.client('ec2')
 
-    response = ec2_resource.describe_instances(
+    response = client.describe_instances(
         Filters=[
             {
-                'Name': 'minecraft-server'
+                'Name': 'tag:Name',
+                'Values': [friendlyName]
             },
         ]
     )
 
-    return response
+    return response["Reservations"][0]["Instances"][0]["InstanceId"]
