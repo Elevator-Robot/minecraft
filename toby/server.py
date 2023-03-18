@@ -18,7 +18,10 @@ class Server:
             ]
         )
 
-        return response["Reservations"][0]["Instances"][0]["InstanceId"]
+        status_code = response['ResponseMetadata']['HTTPStatusCode']
+        id = response["Reservations"][0]["Instances"][0]["InstanceId"]
+
+        return { "status_code": status_code, "body": id }
 
     def on(self):
         # grab ec2 instance id based off friendly name
@@ -28,11 +31,12 @@ class Server:
 
         # start instance
         response = self.client.start_instances(
-            InstanceIds=[id],
+            InstanceIds=[id["body"]],
             DryRun=True
         )
 
-        return {"statusCode": 200, "body": response}
+        status_code = response['ResponseMetadata']['HTTPStatusCode']
+        return { "status_code": status_code, "body": response }
 
     def off(self):
         # grab ec2 instance id based off friendly name
@@ -42,11 +46,12 @@ class Server:
 
         # stop instance
         response = self.client.stop_instances(
-            InstanceIds=[id],
+            InstanceIds=[id["body"]],
             DryRun=True
         )
 
-        return {"statusCode": 200, "body": response}
+        status_code = response['ResponseMetadata']['HTTPStatusCode']
+        return { "status_code": status_code, "body": response }
 
     def restart(self):
         # grab ec2 instance id based off friendly name
@@ -56,11 +61,15 @@ class Server:
 
         # reboot instance
         response = self.client.reboot_instances(
-            InstanceIds=[id],
+            InstanceIds=[id["body"]],
             DryRun=True
         )
-        return {"statusCode": 200, "body": response}
+
+        status_code = response['ResponseMetadata']['HTTPStatusCode']
+        return { "status_code": status_code, "body": response }
 
     def getID(self):
-        id = self._lookupID()
-        return {"statusCode": 200, "body": id}
+        response = self._lookupID()
+        status_code = response["status_code"]
+
+        return { "status_code": status_code, "body": response["body"] }
