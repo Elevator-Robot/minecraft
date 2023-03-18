@@ -1,0 +1,22 @@
+org: aphexlog
+app: bot
+service: toby
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.8
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /hello
+          method: get
+          cors: true
+          private: true
+
+  hello2:
+    handler: handler.hello2
