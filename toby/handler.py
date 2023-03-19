@@ -1,18 +1,9 @@
-import json
+import asyncio
+from discord_bot import Bot
 
+# We don't return because otherwise the bot will die.
+def toby_handler(event, context):
+  print("We are going to say hi to toby :wave:")
 
-def hello(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully!",
-        "input": event,
-    }
-
-    return {"statusCode": 200, "body": json.dumps(body)}
-
-def hello2(event, context):
-    body = {
-        "message": "Go Serverless v3.0! Your function executed successfully! FUCK YOUUUU?",
-        "input": event,
-    }
-
-    return {"statusCode": 200, "body": json.dumps(body)}
+  toby = Bot('<DISCORD TOKEN HERE>')
+  asyncio.run(toby.start())

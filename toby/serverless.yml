@@ -1,5 +1,5 @@
-org: aphexlog
-app: bot
+org:
+app:
 service: toby
 
 frameworkVersion: '3'
@@ -9,14 +9,5 @@ provider:
   runtime: python3.8
 
 functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: /hello
-          method: get
-          cors: true
-          private: true
-
-  hello2:
-    handler: handler.hello2
+  toby:
+    handler: handler.toby_handler
