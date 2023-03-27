@@ -16,5 +16,5 @@ npm install -g serverless
 cd toby/
 ```
 ```
-serverless invoke local -f server_commands -d '{"server_name":"minecraft-server", "command":"<on | off | restart | getID>"}'
+serverless invoke local -f toby -d '{<unknown json object that we should probs figure out>}'
 ```
