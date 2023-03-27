@@ -1,34 +1,10 @@
-from server import Server
+import os
+import asyncio
+from discord_bot import Bot
 
-def server_commands(event, context):
-  ec2_friendly_name = event["server_name"]
-  command = event["command"]
+# We don't return because otherwise the bot will die.
+def toby_handler(event, context):
+	print("We are going to say hi to toby :wave:")
 
-  # fun little class with methods to do things to the server.
-  server = Server(ec2_friendly_name)
-
-  # switch statment on where to go depending on command
-  match command:
-    case "on":
-      print(f"Command matched with: {command}")
-      response = server.on()
-      return response
-
-    case "off":
-      print(f"Command matched with: {command}")
-      response = server.off()
-      return response
-
-    case "restart":
-      print(f"Command matched with: {command}")
-      response = server.restart()
-      return response
-
-    case "getID":
-      print(f"Command matched with: {command}")
-      response = server.getID()
-      return response
-
-    case _x:
-      print(f"Invalid command of: {command}")
-      return {"status": 500, "body": "sorry, but WE BROOOKKEEE"}
+	toby = Bot(os.environ['OAUTH_TOKEN'])
+	asyncio.run(toby.start())
