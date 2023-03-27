@@ -11,3 +11,5 @@ provider:
 functions:
   toby:
     handler: handler.toby_handler
+    environment:
+      discord_oauth_token: ${ssm:/discord/bots/toby/secrets/oauth_token}
