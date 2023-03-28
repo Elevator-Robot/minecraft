@@ -3,7 +3,7 @@ from server import Server
 
 def toby_handler(event, context):
   command = event["command"]
-  ec2_friendly_name = os.environ['SERVER_NAME']
+  ec2_friendly_name = os.environ["SERVER_NAME"]
 
   # fun little class with methods to do things to the server.
   server = Server(ec2_friendly_name)

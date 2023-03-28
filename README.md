@@ -16,5 +16,5 @@ npm install -g serverless
 cd toby/
 ```
 ```
-serverless invoke local -f server_commands -d  '{"command":"<on | off | restart | getID>"}'
+serverless invoke local -f toby -d '{"command":"<on | off | restart | getID>"}'
 ```
