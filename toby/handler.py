@@ -1,7 +1,7 @@
 import os
 from server import Server
 
-def server_commands(event, context):
+def toby_handler(event, context):
   command = event["command"]
   ec2_friendly_name = os.environ['SERVER_NAME']
 
