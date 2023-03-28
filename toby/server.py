@@ -1,5 +1,6 @@
 import boto3
 
+# "Server class to handle actions on the EC2 instance."
 class Server:
     def __init__(self, friendly_name):
         self.friendly_name = friendly_name

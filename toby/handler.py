@@ -1,8 +1,9 @@
+import os
 from server import Server
 
 def server_commands(event, context):
-  ec2_friendly_name = event["server_name"]
   command = event["command"]
+  ec2_friendly_name = os.environ['SERVER_NAME']
 
   # fun little class with methods to do things to the server.
   server = Server(ec2_friendly_name)
